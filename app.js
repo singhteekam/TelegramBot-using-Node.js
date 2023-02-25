@@ -6,7 +6,7 @@ const options= {
         port: process.env.PORT || 3000
     }
 };
-const url= 'url';
+const url = "https://telebotapptest.onrender.com";
 const token= process.env.TOKEN;
 
 const { Telegraf } = require('telegraf');
