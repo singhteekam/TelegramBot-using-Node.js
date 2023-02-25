@@ -1,8 +1,18 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: '.env' });
 
+const options= {
+    webHook:{
+        port: process.env.PORT || 3000
+    }
+};
+const url= 'url';
+const token= process.env.TOKEN;
+
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf(process.env.TOKEN);
+const bot = new Telegraf(process.env.TOKEN, options);
+
+bot.setWebHook(`${url}/bot${token}`);
 
 //HELP MESSAGE
 bot.help(ctx => {
