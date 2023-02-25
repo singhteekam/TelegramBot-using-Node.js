@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Teekam Singh",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
     "telegraf": "^4.11.2"
+  },
+  "engines": {
+    "node": "16.14.0"
   }
 }
