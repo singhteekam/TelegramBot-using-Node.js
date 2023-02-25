@@ -1,18 +1,19 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: '.env' });
 
-const options= {
-    webHook:{
-        port: process.env.PORT || 3000
-    }
-};
-const url = "https://telebotapptest.onrender.com";
-const token= process.env.TOKEN;
+// const options= {
+//     webHook:{
+//         port: process.env.PORT || 3000
+//     }
+// };
+
+// const url = "https://telebotapptest.onrender.com";
+// const token= process.env.TOKEN;
 
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf(process.env.TOKEN, options);
+const bot = new Telegraf(process.env.TOKEN);
 
-bot.setWebHook(`${url}/bot${token}`);
+// bot.setWebHook(`${url}/bot${token}`);
 
 //HELP MESSAGE
 bot.help(ctx => {
@@ -362,4 +363,9 @@ bot.action("menu", (ctx) => {
 
 
 
-bot.launch()
+bot.launch({
+  webhook: {
+    domain: "https://telebotapptest.onrender.com",
+    port: 4000,
+  },
+});
