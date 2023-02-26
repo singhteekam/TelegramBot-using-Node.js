@@ -42,19 +42,19 @@ bot.help(ctx => {
 })
 
 
-bot.use((ctx, next) => {
-  // ctx.state.value = 50;
-  // console.log(ctx.state.value);
-//   ctx.reply("Hi " + ctx.chat.first_name);
-//   ctx.reply("Hi " + ctx.chat.first_name);
+// bot.use((ctx, next) => {
+//   // ctx.state.value = 50;
+//   // console.log(ctx.state.value);
+// //   ctx.reply("Hi " + ctx.chat.first_name);
+// //   ctx.reply("Hi " + ctx.chat.first_name);
 
-  let msg = `
-  Hi ${ctx.chat.first_name}
-/help - for more options
-    `;
-    ctx.reply(msg);
-  next(ctx);
-});
+//   let msg = `
+//   Hi ${ctx.chat.first_name}
+// /help - for more options
+//     `;
+//     ctx.reply(msg);
+//   next(ctx);
+// });
 
 // bot.start((ctx)=>{ 
 //     // ctx.reply(ctx.state.value)
@@ -67,10 +67,13 @@ bot.use((ctx, next) => {
 //     ctx.reply('👍')
 // });
 
-// bot.hears('hi', (ctx)=>{ 
-//     ctx.reply('Hey there')
-//     console.log(ctx);
-// });
+bot.hears(['hi','hello','hey'], (ctx)=>{ 
+    let msg = `
+  Hi ${ctx.chat.first_name}
+/help - for more options
+    `;
+    ctx.reply(msg);
+});
 
 
 // Media Files
