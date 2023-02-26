@@ -365,7 +365,7 @@ bot.action("menu", (ctx) => {
 
 bot.launch({
   webhook: {
-    domain: "https://telebotapptest.onrender.com",
+    domain: "https://brainy-moth-glasses.cyclic.app",
     port: 4000,
   },
 });
