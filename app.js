@@ -30,9 +30,6 @@ bot.help(ctx => {
 /refreshgsheet - refresh g sheet
 /languages - list of few computer languages
 /inlinebuttons - inline buttons
-/fruitslist - list of fruits
-/vegetableslist - list of vegetables
-/menu - for menu items
 /help - for more options
      `;
     // ctx.reply(msg);
@@ -346,7 +343,7 @@ bot.action("vegetableslist", (ctx) => {
     )
 });
 
-bot.command("menu", (ctx) => {
+bot.action("menu", (ctx) => {
     ctx.deleteMessage();
     bot.telegram.sendMessage(ctx.chat.id, "Inline Menu", {
       reply_markup: {
