@@ -70,8 +70,8 @@ bot.help(ctx => {
 bot.hears(['hi','Hi','hello','Hello','hey','Hey'], (ctx)=>{ 
     let msg = `
   Hi ${ctx.chat.first_name}
-I'm bot made by Mr. Teekam. For all available options, type /help.
-/help - for more options
+I'm bot made by Mr. Teekam.
+Type /help - for more options
     `;
     ctx.reply(msg);
 });
