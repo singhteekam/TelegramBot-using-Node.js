@@ -67,7 +67,7 @@ bot.help(ctx => {
 //     ctx.reply('👍')
 // });
 
-bot.hears(['/hi','Hi','hello','Hello','hey','Hey'], (ctx)=>{ 
+bot.hears(['/hi','hi','Hi','hello','Hello','hey','Hey'], (ctx)=>{ 
     let msg = `
   Hi ${ctx.chat.first_name}
 I'm bot made by Mr. Teekam.
@@ -346,7 +346,7 @@ bot.action("vegetableslist", (ctx) => {
     )
 });
 
-bot.action("menu", (ctx) => {
+bot.command("menu", (ctx) => {
     ctx.deleteMessage();
     bot.telegram.sendMessage(ctx.chat.id, "Inline Menu", {
       reply_markup: {
