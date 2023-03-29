@@ -4,7 +4,7 @@ In this repo, you will learn basics of telegram bot. For ex: sending photos, vid
 ## My Telegram bot username: [@TestingTBot_bot](https://t.me/TestingTBot_bot)
 
 # Demo
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/55067104/228434394-a08a8a9c-51da-4c9c-adc5-3bcbf25f555f.gif)
+![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/55067104/228434588-74d9f703-1761-4585-b89e-56eb0a572bf7.gif)
 
 
 # Steps:
