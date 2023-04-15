@@ -1,7 +1,7 @@
 # TelegramBotBasics
 In this repo, you will learn basics of telegram bot. For ex: sending photos, videos, gifs, inline buttons, working with google sheets, and much more. It's hosted on [Cyclic](https://www.cyclic.sh/) and you can search my below bot in telegram app or click the below link.
 
-## My Telegram bot username: [@TestingTBot_bot](https://t.me/TestingTBot_bot)
+## My Telegram bot username: [@BotByTS](https://t.me/singht_bot)
 
 # Demo
 ![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/55067104/228434588-74d9f703-1761-4585-b89e-56eb0a572bf7.gif)

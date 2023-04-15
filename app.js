@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: '.env' });
+import './test.js'
 
 // const options= {
 //     webHook:{
