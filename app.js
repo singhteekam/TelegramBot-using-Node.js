@@ -370,7 +370,7 @@ bot.action("menu", (ctx) => {
 
 bot.launch({
   webhook: {
-    domain: "https://brainy-moth-glasses.cyclic.app",
+    domain: "https://tiny-erin-armadillo-slip.cyclic.app",
     port: 4000,
   },
 });
