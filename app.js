@@ -32,6 +32,7 @@ bot.help(ctx => {
 /languages - list of few computer languages
 /inlinebuttons - inline buttons
 /help - for more options
+/websites - Click to see teekam's websites
      `;
     // ctx.reply(msg);
     bot.telegram.sendMessage(ctx.chat.id, msg, {
@@ -367,7 +368,21 @@ bot.action("menu", (ctx) => {
     });
 });
 
+bot.command("websites", (ctx) => {
+  let msg = `
+Personal website - singhteekam.in
+Kaun banega crorepati game - brainquiz.singhteekam.in
+/Diary app - mydiary.singhteekam.in
+/Tic Tac Toe game - zerocrossgame.singhteekam.in
+/help - for more options
+     `;
+  // ctx.reply(msg);
+  bot.telegram.sendMessage(ctx.chat.id, msg, {
+    parse_mode: "markdown",
+  });
+});
 
+// bot.launch();
 
 bot.launch({
   webhook: {
