@@ -66,12 +66,16 @@ bot.help(ctx => {
 
 bot.hears(['/hi','hi','Hi','hello','Hello','hey','Hey'], (ctx)=>{ 
     let msg = `
-  Hi ${ctx.chat.first_name}
+  Hello ${ctx.chat.first_name}
 I'm bot made by Mr. Teekam.
 Type /help - for more options
     `;
     ctx.reply(msg);
 });
+
+// bot.command('getMe', (ctx)=>{
+//     bot.telegram.getMe();
+// })
 
 
 // Media Files
