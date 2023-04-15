@@ -16,6 +16,38 @@ const bot = new Telegraf(process.env.TOKEN);
 
 // bot.setWebHook(`${url}/bot${token}`);
 
+bot.telegram.setMyCommands([
+  {
+    command: "/hi",
+    description: "Hello message",
+  },
+  {
+    command: "/chataction",
+    description: "Ex: Typing...",
+  },
+  {
+    command: "/senddice",
+    description: "Animated dice",
+  },
+  {
+    command: "/polling",
+    description: "Poll",
+  },
+  {
+    command: "/sendingcontact",
+    description: "Sending dummy contact to user",
+  },
+  {
+    command: "/venue",
+    description: "Sending dummy venue to user",
+  },
+  {
+    command: "/help",
+    description: "Other help commands",
+  },
+]);
+
+
 //HELP MESSAGE
 bot.help(ctx => {
     let msg = `
@@ -109,60 +141,7 @@ bot.command('gif', (ctx) => {
     );
 })
 
-//Sending multiple files
-bot.command('mediagroup', (ctx) => {
-    bot.telegram.sendChatAction(ctx.chat.id, "upload_document")
 
-    // bot.telegram.sendMediaGroup(ctx.chat.id,
-    //     [
-    //         {
-    //             type:"photo",
-    //             media: "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png"
-    //         },
-    //         {
-    //             type:"photo",
-    //             media: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
-    //         }
-    //     ],
-    // );
-
-    // OR
-    let photos = [
-        "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png",
-        "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
-    ];
-    let allpics = photos.map(photo => {
-        return {
-            type: "photo",
-            media: photo
-        }
-    })
-    bot.telegram.sendMediaGroup(ctx.chat.id, allpics);
-})
-
-// List command
-bot.command("thumbnailitem", ctx => {
-    bot.telegram.sendDocument(
-        ctx.chat.id,
-        // {
-        //     source: "LOCAL-PATH"
-        // }
-        "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-        ,
-        {
-            thumb: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-        }
-
-    )
-});
-
-bot.command("location", ctx => {
-    bot.telegram.sendLocation(
-        ctx.chat.id,
-        28.459497,
-        77.026634
-    )
-});
 
 //GET DOWNLOAD LINK(for personal use only)
 // bot.on("message", async ctx=>{
@@ -305,7 +284,7 @@ bot.command("inlinebuttons", (ctx) => {
           ],
           [
             { text: "Btn21", callback_data: "hii" },
-            { text: "Btn22", callback_data: "hii" },
+            { text: "Btn22", callback_data: "replykey" },
           ],
         ],
       },
@@ -361,19 +340,33 @@ bot.action("menu", (ctx) => {
           ],
           [
             { text: "Help", callback_data: "/help" },
-            { text: "Btn22", callback_data: "hii" },
+            { text: "Btn22", callback_data: "hi" },
           ],
         ],
       },
     });
 });
 
+// ReplyKeyboardMarkup 
+bot.action("replykeyboard", (ctx) => {
+//   ctx.deleteMessage();
+  bot.telegram.sendMessage(ctx.chat.id, "Reply Menu", {
+    reply_markup: {
+      keyboard: [
+        [{ text: "Hi" }],
+        [{ text: "Hey" }],
+        [{ text: "Hello" }],
+      ],
+    },
+  });
+});
+
 bot.command("websites", (ctx) => {
   let msg = `
-Personal website - singhteekam.in
+Personal website - https://www.singhteekam.in/
 Kaun banega crorepati game - brainquiz.singhteekam.in
-/Diary app - mydiary.singhteekam.in
-/Tic Tac Toe game - zerocrossgame.singhteekam.in
+Diary app - mydiary.singhteekam.in
+Tic Tac Toe game - zerocrossgame.singhteekam.in
 /help - for more options
      `;
   // ctx.reply(msg);
@@ -381,6 +374,112 @@ Kaun banega crorepati game - brainquiz.singhteekam.in
     parse_mode: "markdown",
   });
 });
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+// Sending document - sendDocument() method
+bot.command("thumbnailitem", ctx => {
+    bot.telegram.sendDocument(
+        ctx.chat.id,
+        // {
+        //     source: "LOCAL-PATH"
+        // }
+        "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+        ,
+        {
+            thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+        }
+
+    )
+});
+
+
+//Sending multiple files
+bot.command('mediagroup', (ctx) => {
+    bot.telegram.sendChatAction(ctx.chat.id, "upload_document")
+
+    // bot.telegram.sendMediaGroup(ctx.chat.id,
+    //     [
+    //         {
+    //             type:"photo",
+    //             media: "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png"
+    //         },
+    //         {
+    //             type:"photo",
+    //             media: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
+    //         }
+    //     ],
+    // );
+
+    // OR
+    let photos = [
+        "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png",
+        "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
+    ];
+    let allpics = photos.map(photo => {
+        return {
+            type: "photo",
+            media: photo
+        }
+    })
+    bot.telegram.sendMediaGroup(ctx.chat.id, allpics);
+})
+
+// Location - sendLocation() method
+bot.command("location", (ctx) => {
+  bot.telegram.sendLocation(ctx.chat.id, 28.459497, 77.026634);
+});
+
+// Venue - sendVenue() method
+bot.command("venue", (ctx) => {
+  bot.telegram.sendVenue(ctx.chat.id, 
+    28.459497, 
+    77.026634,
+    "This is venue function",
+    "AVL, Gurgaon"
+    );
+});
+
+// Sending Contact - sendContact() method
+bot.command("sendingcontact", (ctx) => {
+  bot.telegram.sendContact(ctx.chat.id, 
+    "9999999999", 
+    "Antique"
+    );
+});
+
+//POLLING - sendPoll() METHOD
+bot.command("polling", (ctx)=>{
+    bot.telegram.sendPoll(
+      ctx.chat.id,
+      "This is question",
+      ["first", "second", "third"],
+      {
+        type: "quiz",
+        correct_option_id: 1,
+        explanation: "Just testing"
+      }
+    );
+})
+
+//  sendDice method
+bot.command("senddice", (ctx) => {
+  bot.telegram.sendDice(ctx.chat.id, {
+    emoji: "🎲",
+  });
+});
+
+// Chat action - sendChatAction() method
+bot.command("chataction", (ctx)=>{
+    bot.telegram.sendChatAction(ctx.chat.id, "typing");
+})
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 
 // bot.launch();
 
