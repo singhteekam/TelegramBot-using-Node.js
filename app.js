@@ -284,7 +284,7 @@ bot.command("inlinebuttons", (ctx) => {
           ],
           [
             { text: "Btn21", callback_data: "hii" },
-            { text: "Btn22", callback_data: "replykey" },
+            { text: "Reply Keyboard", callback_data: "replykeyboard" },
           ],
         ],
       },
@@ -336,11 +336,11 @@ bot.action("menu", (ctx) => {
           [
             { text: "Fruits list", callback_data: "fruitslist" },
             { text: "Vegetables list", callback_data: "vegetableslist" },
-            { text: "Btn", callback_data: "hii" },
+            { text: "Hello", callback_data: "hi" },
           ],
           [
             { text: "Help", callback_data: "/help" },
-            { text: "Btn22", callback_data: "hi" },
+            { text: "Reply Keyboard", callback_data: "replykeyboard" },
           ],
         ],
       },
