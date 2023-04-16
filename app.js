@@ -506,11 +506,11 @@ bot.on("callback_query", async (ctx) => {
     );
   } else {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
-    let gameURL ="https://telegrambotbyts.onrender.com/index.html?id="+ctx.callbackQuery.id;
+    let gameURL ="https://chiton-outerwear.cyclic.app/index.html?id="+ctx.callbackQuery.id;
     await ctx.telegram.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
-    console.log(ctx.callbackQuery.id);
+    console.log(gameURL);
   }
 });
 
@@ -581,7 +581,7 @@ app.listen(5000);
 
 bot.launch({
   webhook: {
-    domain: "https://telegrambotbyts.onrender.com",
+    domain: "https://chiton-outerwear.cyclic.app",
     port: 4000,
   },
 });
