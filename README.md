@@ -6,6 +6,25 @@ In this repo, you will learn basics of telegram bot. For ex: sending photos, vid
 # Demo
 ![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/55067104/228434588-74d9f703-1761-4585-b89e-56eb0a572bf7.gif)
 
+## Methods explained:
+- sendMessage()
+- deleteMessage()
+- setMyCommands()
+- help()
+- hears()
+- action()
+- sendPhoto()
+- sendAnimation()
+- reply()
+- replyWithPhoto()
+- sendDocument()
+- sendChatAction()
+- sendMediaGroup()
+- sendVenue()
+- sendContact()
+- sendPoll()
+- sendDice()
+
 
 # Steps:
 ## Cloning
