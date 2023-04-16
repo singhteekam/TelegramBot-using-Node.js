@@ -13,6 +13,7 @@ dotenv.config({ path: '.env' });
 
 const { Telegraf } = require('telegraf');
 const bot = new Telegraf(process.env.TOKEN);
+const gameName = process.env.GAMENAME;
 
 // bot.setWebHook(`${url}/bot${token}`);
 
@@ -476,6 +477,101 @@ bot.command("senddice", (ctx) => {
 bot.command("chataction", (ctx)=>{
     bot.telegram.sendChatAction(ctx.chat.id, "typing");
 })
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// TELEGRAM GAME
+
+const express = require("express");
+const path = require("path");
+const app = express();
+
+const queries = {};
+
+bot.command("game", (msg) => {
+  // bot.telegram.sendGame(ctx.chat.id, gameName);
+  bot.telegram.sendGame(msg.from.id, gameName);
+});
+
+bot.on("callback_query", async (ctx) => {
+  // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
+  // console.log(ctx.callbackQuery.id);
+  if (ctx.callbackQuery.game_short_name !== gameName) {
+    // console.log(ctx.callbackQuery.id);
+    ctx.answerCbQuery(
+      ctx.callbackQuery.id,
+      "Sorry, '" + callbackQuery.game_short_name + "' is not available."
+    );
+  } else {
+    queries[ctx.callbackQuery.id] = ctx.callbackQuery;
+    let gameURL =
+      "https://tiny-erin-armadillo-slip.cyclic.app/index.html?id=" +
+      ctx.callbackQuery.id;
+    await ctx.telegram.answerCbQuery(ctx.callbackQuery.id, {
+      url: gameURL,
+    });
+    console.log(ctx.callbackQuery.id);
+  }
+});
+
+bot.on("inline_query", async (ctx) => {
+  console.log(ctx.inlineQuery);
+  await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
+    { type: "game", id: "0", game_short_name: gameName },
+  ]);
+});
+
+// bot.on("callback_query", function (query) {
+//   console.log("Executed: " + query.game_short_name);
+//   if (query.game_short_name !== gameName) {
+//     query.answerCbQuery(
+//       query.id,
+//       "Sorry, '" + query.game_short_name + "' is not available."
+//     );
+//     // console.log("Executed" + query.id);
+//   } else {
+//     queries[query.id] = query;
+//     let gameurl = "http://localhost:5000/index.html?id=" + query.id;
+//     // bot.telegram.answerCallbackQuery(query.id, {
+//     query.answerCbQuery(query.id, {
+//       url: gameurl,
+//     });
+//   }
+// });
+// bot.on("inline_query", function (iq) {
+//   console.log(iq);
+//   bot.telegram.answerInlineQuery(iq.id, [
+//     { type: "game", id: "0", game_short_name: gameName },
+//   ]);
+// });
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/highscore/:score", function (req, res, next) {
+  if (!Object.hasOwnProperty.call(queries, req.query.id)) return next();
+  let query = queries[req.query.id];
+  let options;
+  if (query.message) {
+    options = {
+      chat_id: query.message.chat.id,
+      message_id: query.message.message_id,
+    };
+  } else {
+    options = {
+      inline_message_id: query.inline_message_id,
+    };
+  }
+  bot.setGameScore(
+    query.from.id,
+    parseInt(req.params.score),
+    options,
+    function (err, result) {}
+  );
+});
+
+app.listen(5000);
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
