@@ -506,9 +506,7 @@ bot.on("callback_query", async (ctx) => {
     );
   } else {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
-    let gameURL =
-      "https://tiny-erin-armadillo-slip.cyclic.app/index.html?id=" +
-      ctx.callbackQuery.id;
+    let gameURL ="https://telegrambotbyts.onrender.com/index.html?id="+ctx.callbackQuery.id;
     await ctx.telegram.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
@@ -582,7 +580,7 @@ app.listen(5000);
 
 bot.launch({
   webhook: {
-    domain: "https://tiny-erin-armadillo-slip.cyclic.app",
+    domain: "https://telegrambotbyts.onrender.com",
     port: 4000,
   },
 });
