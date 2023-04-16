@@ -494,6 +494,7 @@ bot.command("game", (msg) => {
   bot.telegram.sendGame(msg.from.id, gameName);
 });
 
+
 bot.on("callback_query", async (ctx) => {
   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
   // console.log(ctx.callbackQuery.id);
