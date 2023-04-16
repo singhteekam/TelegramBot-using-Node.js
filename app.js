@@ -514,6 +514,7 @@ bot.on("callback_query", async (ctx) => {
   }
 });
 
+
 bot.on("inline_query", async (ctx) => {
   console.log(ctx.inlineQuery);
   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
