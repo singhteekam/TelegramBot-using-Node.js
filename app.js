@@ -506,7 +506,8 @@ bot.on("callback_query", async (ctx) => {
     );
   } else {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
-    let gameURL ="https://chiton-outerwear.cyclic.app/index.html?id="+ctx.callbackQuery.id;
+    let gameURL =
+      "https://tstelegame1.cyclic.app/index.html?id=" + ctx.callbackQuery.id;
     await ctx.telegram.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
@@ -581,7 +582,7 @@ app.listen(5000);
 
 bot.launch({
   webhook: {
-    domain: "https://chiton-outerwear.cyclic.app",
-    port: 4000,
+    domain: "https://tstelegame1.cyclic.app",
+    port: 5000,
   },
 });
