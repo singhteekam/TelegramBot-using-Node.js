@@ -507,7 +507,7 @@ bot.on("callback_query", async (ctx) => {
   } else {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
     let gameURL =
-      "https://tstelegame1.cyclic.app/index.html?id=" + ctx.callbackQuery.id;
+      "https://telegamets1.onrender.com/index.html?id=" + ctx.callbackQuery.id;
     await ctx.telegram.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
@@ -571,7 +571,7 @@ app.get("/highscore/:score", function (req, res, next) {
   );
 });
 
-app.listen(5000);
+// app.listen(5000);
 
 
 
@@ -582,7 +582,7 @@ app.listen(5000);
 
 bot.launch({
   webhook: {
-    domain: "https://tstelegame1.cyclic.app",
+    domain: "https://telegamets1.onrender.com",
     port: 5000,
   },
 });
