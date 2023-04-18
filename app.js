@@ -508,7 +508,7 @@ bot.on("callback_query", async (ctx) => {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
     let gameURL =
       // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
-      "https://telegamets1.onrender.com/index.html?id=" + ctx.callbackQuery.id;
+      "https://wide-eyed-sweatshirt-bee.cyclic.app/index.html?id="+ctx.callbackQuery.id;
     await ctx.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
@@ -583,7 +583,7 @@ app.listen(5000);
 
 bot.launch({
   webhook: {
-    domain: "https://telegamets1.onrender.com",
+    domain: "https://wide-eyed-sweatshirt-bee.cyclic.app",
     port: 5000,
   },
 });
