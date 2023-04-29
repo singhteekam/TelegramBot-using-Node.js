@@ -487,7 +487,6 @@ bot.command("chataction", (ctx)=>{
 bot.command("game", (ctx) => {
   let msg = `
 /DinoGame - Play Dino game
-/TicTacToe - Play tic tac toe game
 /help - for more options
      `;
   // ctx.reply(msg);
@@ -498,15 +497,10 @@ bot.command("game", (ctx) => {
 
 const queries = {};
 
+
+
 bot.command("DinoGame", (msg) => {
   // bot.telegram.sendGame(ctx.chat.id, gameName);
-  gameName='tsgame';
-  bot.telegram.sendGame(msg.from.id, gameName);
-});
-
-bot.command("TicTacToe", (msg) => {
-  // bot.telegram.sendGame(ctx.chat.id, gameName);
-  gameName = "tictactoe";
   bot.telegram.sendGame(msg.from.id, gameName);
 });
 
@@ -522,18 +516,10 @@ bot.on("callback_query", async (ctx) => {
     );
   } else {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
-    let gameURL;
-    if(gameName==='tsgame'){
-      gameURL =
-        // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
-        "https://app.singhteekam.in/DinoGame/index.html?id=" +
-        ctx.callbackQuery.id;
-    }
-    else{
-      gameURL =
-        "https://mydiary.singhteekam.in/index.html?id=" + ctx.callbackQuery.id;
-    }
-
+    let gameURL =
+      // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
+      "https://app.singhteekam.in/DinoGame/index.html?id=" +
+      ctx.callbackQuery.id;
     await ctx.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
