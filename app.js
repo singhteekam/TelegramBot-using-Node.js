@@ -23,6 +23,10 @@ bot.telegram.setMyCommands([
     description: "Hello message",
   },
   {
+    command: "/game",
+    description: "Play Games",
+  },
+  {
     command: "/chataction",
     description: "Ex: Typing...",
   },
