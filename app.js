@@ -500,6 +500,7 @@ const queries = {};
 
 bot.command("DinoGame", (msg) => {
   // bot.telegram.sendGame(ctx.chat.id, gameName);
+  console.log(msg);
   bot.telegram.sendGame(msg.from.id, gameName);
 });
 
