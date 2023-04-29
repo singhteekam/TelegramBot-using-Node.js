@@ -487,42 +487,44 @@ bot.command("chataction", (ctx)=>{
 // const path = require("path");
 // const app = express();
 
-// const queries = {};
+const queries = {};
 
-// bot.command("game", (msg) => {
-//   // bot.telegram.sendGame(ctx.chat.id, gameName);
-//   bot.telegram.sendGame(msg.from.id, gameName);
-// });
-
-
-// bot.on("callback_query", async (ctx) => {
-//   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
-//   // console.log(ctx.callbackQuery.id);
-//   if (ctx.callbackQuery.game_short_name !== gameName) {
-//     // console.log(ctx.callbackQuery.id);
-//     ctx.answerCbQuery(
-//       ctx.callbackQuery.id,
-//       "Sorry, '" + callbackQuery.game_short_name + "' is not available."
-//     );
-//   } else {
-//     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
-//     let gameURL =
-//       // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
-//       "https://wide-eyed-sweatshirt-bee.cyclic.app/index.html?id="+ctx.callbackQuery.id;
-//     await ctx.answerCbQuery(ctx.callbackQuery.id, {
-//       url: gameURL,
-//     });
-//     console.log(queries);
-//   }
-// });
+bot.command("game", (msg) => {
+  // bot.telegram.sendGame(ctx.chat.id, gameName);
+  bot.telegram.sendGame(msg.from.id, gameName);
+});
 
 
-// bot.on("inline_query", async (ctx) => {
-//   console.log(ctx.inlineQuery);
-//   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
-//     { type: "game", id: "0", game_short_name: gameName },
-//   ]);
-// });
+bot.on("callback_query", async (ctx) => {
+  // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
+  // console.log(ctx.callbackQuery.id);
+  if (ctx.callbackQuery.game_short_name !== gameName) {
+    // console.log(ctx.callbackQuery.id);
+    ctx.answerCbQuery(
+      ctx.callbackQuery.id,
+      "Sorry, '" + callbackQuery.game_short_name + "' is not available."
+    );
+  } else {
+    queries[ctx.callbackQuery.id] = ctx.callbackQuery;
+    let gameURL =
+      // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
+      "https://fine-pear-basket-clam-hat.cyclic.app/index.html?id=" +
+      ctx.callbackQuery.id;
+    await ctx.answerCbQuery(ctx.callbackQuery.id, {
+      url: gameURL,
+    });
+    console.log(queries);
+  }
+});
+
+
+bot.on("inline_query", async (ctx) => {
+  console.log(ctx.inlineQuery);
+  await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
+    { type: "game", id: "0", game_short_name: gameName },
+  ]);
+});
+
 
 // bot.on("callback_query", function (query) {
 //   console.log("Executed: " + query.game_short_name);
