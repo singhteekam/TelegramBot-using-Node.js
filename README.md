@@ -1,11 +1,10 @@
 # TelegramBotBasics
-
-## What's new
- - Play Games in telegram ( Available Games: DinoGame)
- - Set bot commands
-
 In this repo, you will learn basics of telegram bot. For ex: sending photos, videos, gifs, inline buttons, working with google sheets, and much more. It's hosted on [Cyclic](https://www.cyclic.sh/) and you can search my below bot in telegram app or click the below link.
 
+### What's new
+ - Play Games in telegram ( Available Games: DinoGame)
+ - Set bot commands
+***
 ## My Telegram bot username: [@BotByTS](https://t.me/singht_bot)
 
 # Demo
