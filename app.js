@@ -483,46 +483,46 @@ bot.command("chataction", (ctx)=>{
 
 // TELEGRAM GAME
 
-const express = require("express");
-const path = require("path");
-const app = express();
+// const express = require("express");
+// const path = require("path");
+// const app = express();
 
-const queries = {};
+// const queries = {};
 
-bot.command("game", (msg) => {
-  // bot.telegram.sendGame(ctx.chat.id, gameName);
-  bot.telegram.sendGame(msg.from.id, gameName);
-});
-
-
-bot.on("callback_query", async (ctx) => {
-  // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
-  // console.log(ctx.callbackQuery.id);
-  if (ctx.callbackQuery.game_short_name !== gameName) {
-    // console.log(ctx.callbackQuery.id);
-    ctx.answerCbQuery(
-      ctx.callbackQuery.id,
-      "Sorry, '" + callbackQuery.game_short_name + "' is not available."
-    );
-  } else {
-    queries[ctx.callbackQuery.id] = ctx.callbackQuery;
-    let gameURL =
-      // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
-      "https://wide-eyed-sweatshirt-bee.cyclic.app/index.html?id="+ctx.callbackQuery.id;
-    await ctx.answerCbQuery(ctx.callbackQuery.id, {
-      url: gameURL,
-    });
-    console.log(queries);
-  }
-});
+// bot.command("game", (msg) => {
+//   // bot.telegram.sendGame(ctx.chat.id, gameName);
+//   bot.telegram.sendGame(msg.from.id, gameName);
+// });
 
 
-bot.on("inline_query", async (ctx) => {
-  console.log(ctx.inlineQuery);
-  await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
-    { type: "game", id: "0", game_short_name: gameName },
-  ]);
-});
+// bot.on("callback_query", async (ctx) => {
+//   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
+//   // console.log(ctx.callbackQuery.id);
+//   if (ctx.callbackQuery.game_short_name !== gameName) {
+//     // console.log(ctx.callbackQuery.id);
+//     ctx.answerCbQuery(
+//       ctx.callbackQuery.id,
+//       "Sorry, '" + callbackQuery.game_short_name + "' is not available."
+//     );
+//   } else {
+//     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
+//     let gameURL =
+//       // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
+//       "https://wide-eyed-sweatshirt-bee.cyclic.app/index.html?id="+ctx.callbackQuery.id;
+//     await ctx.answerCbQuery(ctx.callbackQuery.id, {
+//       url: gameURL,
+//     });
+//     console.log(queries);
+//   }
+// });
+
+
+// bot.on("inline_query", async (ctx) => {
+//   console.log(ctx.inlineQuery);
+//   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
+//     { type: "game", id: "0", game_short_name: gameName },
+//   ]);
+// });
 
 // bot.on("callback_query", function (query) {
 //   console.log("Executed: " + query.game_short_name);
@@ -548,31 +548,31 @@ bot.on("inline_query", async (ctx) => {
 //   ]);
 // });
 
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/highscore/:score", function (req, res, next) {
-  if (!Object.hasOwnProperty.call(queries, req.query.id)) return next();
-  let query = queries[req.query.id];
-  let options;
-  if (query.message) {
-    options = {
-      chat_id: query.message.chat.id,
-      message_id: query.message.message_id,
-    };
-  } else {
-    options = {
-      inline_message_id: query.inline_message_id,
-    };
-  }
-  bot.setGameScore(
-    query.from.id,
-    parseInt(req.params.score),
-    options,
-    function (err, result) {}
-  );
-});
+// app.get("/highscore/:score", function (req, res, next) {
+//   if (!Object.hasOwnProperty.call(queries, req.query.id)) return next();
+//   let query = queries[req.query.id];
+//   let options;
+//   if (query.message) {
+//     options = {
+//       chat_id: query.message.chat.id,
+//       message_id: query.message.message_id,
+//     };
+//   } else {
+//     options = {
+//       inline_message_id: query.inline_message_id,
+//     };
+//   }
+//   bot.setGameScore(
+//     query.from.id,
+//     parseInt(req.params.score),
+//     options,
+//     function (err, result) {}
+//   );
+// });
 
-app.listen(5000);
+// app.listen(5000);
 
 
 
