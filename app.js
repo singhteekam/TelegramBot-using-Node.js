@@ -13,8 +13,7 @@ dotenv.config({ path: '.env' });
 
 const { Telegraf } = require('telegraf');
 const bot = new Telegraf(process.env.TOKEN);
-// const gameName = process.env.GAMENAME;
-let gameName;
+const gameName = process.env.GAMENAME;
 
 // bot.setWebHook(`${url}/bot${token}`);
 
