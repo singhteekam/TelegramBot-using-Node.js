@@ -508,7 +508,7 @@ bot.on("callback_query", async (ctx) => {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
     let gameURL =
       // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
-      "http://zerocrossgame.singhteekam.in/index.html?id=" +
+      "https://zerocrossgame.singhteekam.in/index.html?id=" +
       ctx.callbackQuery.id;
     await ctx.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
