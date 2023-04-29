@@ -103,7 +103,7 @@ bot.help(ctx => {
 //     ctx.reply('👍')
 // });
 
-bot.hears(['/hi','hi','Hi','hello','Hello','hey','Hey'], (ctx)=>{ 
+bot.hears(['/hi','/start','hi','Hi','Hii','hii','hello','Hello','hey','Hey'], (ctx)=>{ 
     let msg = `
   Hello ${ctx.chat.first_name}
 I'm bot made by Mr. Teekam.
