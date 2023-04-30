@@ -2,21 +2,13 @@ const dotenv = require('dotenv');
 dotenv.config({ path: '.env' });
 // import './test.js'
 
-// const options= {
-//     webHook:{
-//         port: process.env.PORT || 3000
-//     }
-// };
-
-// const url = "https://telebotapptest.onrender.com";
-// const token= process.env.TOKEN;
+const token= process.env.TOKEN;
 
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf(process.env.TOKEN);
+const bot = new Telegraf(token);
 const dinoGame = process.env.GAMENAMEDINO;
 const brainquizGame = process.env.GAMENAMEKBC;
 
-// bot.setWebHook(`${url}/bot${token}`);
 
 bot.telegram.setMyCommands([
   {
@@ -578,6 +570,15 @@ bot.on("callback_query", async (ctx) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+// WEB APPS
+
+bot.command("webapp", (ctx)=>{
+  bot.telegram.sendMessage(ctx.chat.id, "Coming soon");
+})
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 // bot.launch();
 
