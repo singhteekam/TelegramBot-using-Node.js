@@ -510,7 +510,7 @@ bot.command("DinoGame", (msg) => {
 
 
 bot.on("callback_query", async (ctx) => {
-  bot.telegram.sendMessage(ctx.chat.id, msg);
+  bot.telegram.sendMessage(ctx.chat.id, ctx);
   console.log(ctx);
   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
   // console.log(ctx.callbackQuery.id);
@@ -535,7 +535,7 @@ bot.on("callback_query", async (ctx) => {
 
 
 bot.on("inline_query", async (ctx) => {
-  bot.telegram.sendMessage(ctx.chat.id, msg);
+  bot.telegram.sendMessage(ctx.chat.id, ctx);
   console.log(ctx);
   // console.log(ctx.inlineQuery);
   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
