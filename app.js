@@ -13,7 +13,8 @@ dotenv.config({ path: '.env' });
 
 const { Telegraf } = require('telegraf');
 const bot = new Telegraf(process.env.TOKEN);
-const gameName = process.env.GAMENAME;
+const dinoGame = process.env.GAMENAMEDINO;
+const brainquizGame = process.env.GAMENAMEKBC;
 
 // bot.setWebHook(`${url}/bot${token}`);
 
@@ -490,6 +491,7 @@ bot.command("chataction", (ctx)=>{
 bot.command("game", (ctx) => {
   let msg = `
 /DinoGame - Play Dino game
+/BrainQuiz - Play KBC Game
 /help - for more options
      `;
   // ctx.reply(msg);
@@ -500,27 +502,21 @@ bot.command("game", (ctx) => {
 
 const queries = {};
 
-
 bot.command("DinoGame", (msg) => {
-  // bot.telegram.sendGame(ctx.chat.id, gameName);
-  console.log(msg);
-  bot.telegram.sendMessage(msg.from.id, msg);
-  bot.telegram.sendGame(msg.from.id, gameName);
+  // bot.telegram.sendGame(msg.from.id, gameName);
+  bot.telegram.sendGame(msg.from.id, dinoGame);
 });
 
+bot.command("BrainQuiz", (msg) => {
+  bot.telegram.sendGame(msg.from.id, brainquizGame);
+});
 
 bot.on("callback_query", async (ctx) => {
-  bot.telegram.sendMessage(ctx.chat.id, ctx);
-  console.log(ctx);
+  console.log("Callback: " + ctx.callbackQuery.game_short_name);
   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
   // console.log(ctx.callbackQuery.id);
-  if (ctx.callbackQuery.game_short_name !== gameName) {
-    // console.log(ctx.callbackQuery.id);
-    ctx.answerCbQuery(
-      ctx.callbackQuery.id,
-      "Sorry, '" + callbackQuery.game_short_name + "' is not available."
-    );
-  } else {
+
+  if (ctx.callbackQuery.game_short_name === dinoGame) {
     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
     let gameURL =
       // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
@@ -529,19 +525,55 @@ bot.on("callback_query", async (ctx) => {
     await ctx.answerCbQuery(ctx.callbackQuery.id, {
       url: gameURL,
     });
-    console.log(queries);
+    console.log("Queries: " + queries);
+  } else if (ctx.callbackQuery.game_short_name === brainquizGame) {
+    queries[ctx.callbackQuery.id] = ctx.callbackQuery;
+    let gameURL =
+      // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
+      "https://brainquiz.singhteekam.in/index.html?id=" + ctx.callbackQuery.id;
+    await ctx.answerCbQuery(ctx.callbackQuery.id, {
+      url: gameURL,
+    });
+    console.log("Queries kbc: " + queries);
+  } else {
+    ctx.answerCbQuery(
+      ctx.callbackQuery.id,
+      "Sorry, '" + callbackQuery.game_short_name + "' is not available."
+    );
   }
 });
 
 
-bot.on("inline_query", async (ctx) => {
-  bot.telegram.sendMessage(ctx.chat.id, ctx);
-  console.log(ctx);
-  // console.log(ctx.inlineQuery);
-  await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
-    { type: "game", id: "0", game_short_name: gameName },
-  ]);
-});
+// bot.on("callback_query", async (ctx) => {
+//   console.log("Callback: " + ctx.callbackQuery.game_short_name);
+//   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
+//   // console.log(ctx.callbackQuery.id);
+//   if (ctx.callbackQuery.game_short_name !== gameName) {
+//     // console.log(ctx.callbackQuery.id);
+//     ctx.answerCbQuery(
+//       ctx.callbackQuery.id,
+//       "Sorry, '" + callbackQuery.game_short_name + "' is not available."
+//     );
+//   } else {
+//     queries[ctx.callbackQuery.id] = ctx.callbackQuery;
+//     let gameURL =
+//       // "http://localhost:5000/index.html?id=" + ctx.callbackQuery.id;
+//       "https://app.singhteekam.in/DinoGame/index.html?id=" +
+//       ctx.callbackQuery.id;
+//     await ctx.answerCbQuery(ctx.callbackQuery.id, {
+//       url: gameURL,
+//     });
+//     console.log("Queries: "+queries);
+//   }
+// });
+
+
+// bot.on("inline_query", async (ctx) => {
+//   console.log("Inline query: "+ctx.inlineQuery);
+//   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
+//     { type: "game", id: "0", game_short_name: gameName },
+//   ]);
+// });
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
