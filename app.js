@@ -63,6 +63,8 @@ bot.help(ctx => {
 /inlinebuttons - inline buttons
 /help - for more options
 /websites - Click to see teekam's websites
+/game - Play Games in telegram app
+/webapp - Coming soon..
      `;
     // ctx.reply(msg);
     bot.telegram.sendMessage(ctx.chat.id, msg, {
