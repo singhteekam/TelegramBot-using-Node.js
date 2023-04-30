@@ -501,15 +501,17 @@ bot.command("game", (ctx) => {
 const queries = {};
 
 
-
 bot.command("DinoGame", (msg) => {
   // bot.telegram.sendGame(ctx.chat.id, gameName);
   console.log(msg);
+  bot.telegram.sendMessage(ctx.chat.id, msg);
   bot.telegram.sendGame(msg.from.id, gameName);
 });
 
 
 bot.on("callback_query", async (ctx) => {
+  bot.telegram.sendMessage(ctx.chat.id, msg);
+  console.log(ctx);
   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
   // console.log(ctx.callbackQuery.id);
   if (ctx.callbackQuery.game_short_name !== gameName) {
@@ -533,7 +535,9 @@ bot.on("callback_query", async (ctx) => {
 
 
 bot.on("inline_query", async (ctx) => {
-  console.log(ctx.inlineQuery);
+  bot.telegram.sendMessage(ctx.chat.id, msg);
+  console.log(ctx);
+  // console.log(ctx.inlineQuery);
   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
     { type: "game", id: "0", game_short_name: gameName },
   ]);
