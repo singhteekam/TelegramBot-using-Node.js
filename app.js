@@ -553,7 +553,7 @@ bot.command("webapp", (ctx) => {
         [
           {
             text: "WebApp",
-            web_app: { url: "t.me/singht_bot/portfolio" },
+            web_app: { url: "https://www.singhteekam.in/" },
           },
         ],
       ],
