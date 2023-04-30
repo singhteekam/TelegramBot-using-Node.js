@@ -1,14 +1,13 @@
-const dotenv = require('dotenv');
-dotenv.config({ path: '.env' });
+const dotenv = require("dotenv");
+dotenv.config({ path: ".env" });
 // import './test.js'
 
-const token= process.env.TOKEN;
+const token = process.env.TOKEN;
 
-const { Telegraf } = require('telegraf');
+const { Telegraf } = require("telegraf");
 const bot = new Telegraf(token);
 const dinoGame = process.env.GAMENAMEDINO;
 const brainquizGame = process.env.GAMENAMEKBC;
-
 
 bot.telegram.setMyCommands([
   {
@@ -45,10 +44,9 @@ bot.telegram.setMyCommands([
   },
 ]);
 
-
 //HELP MESSAGE
-bot.help(ctx => {
-    let msg = `
+bot.help((ctx) => {
+  let msg = `
 /hi - hello message
 /picture - for photo
 /gif - for gif
@@ -66,12 +64,11 @@ bot.help(ctx => {
 /game - Play Games in telegram app
 /webapp - Coming soon..
      `;
-    // ctx.reply(msg);
-    bot.telegram.sendMessage(ctx.chat.id, msg, {
-        parse_mode: "markdown"
-    })
-})
-
+  // ctx.reply(msg);
+  bot.telegram.sendMessage(ctx.chat.id, msg, {
+    parse_mode: "markdown",
+  });
+});
 
 // bot.use((ctx, next) => {
 //   // ctx.state.value = 50;
@@ -87,30 +84,32 @@ bot.help(ctx => {
 //   next(ctx);
 // });
 
-// bot.start((ctx)=>{ 
+// bot.start((ctx)=>{
 //     // ctx.reply(ctx.state.value)
 //     console.log(ctx.state.value);
 
 // });
 
 // bot.help((ctx) => ctx.reply('Send me a sticker'))
-// bot.on('sticker', (ctx) =>{ 
+// bot.on('sticker', (ctx) =>{
 //     ctx.reply('👍')
 // });
 
-bot.hears(['/hi','/start','hi','Hi','Hii','hii','hello','Hello','hey','Hey'], (ctx)=>{ 
+bot.hears(
+  ["/hi", "/start", "hi", "Hi", "Hii", "hii", "hello", "Hello", "hey", "Hey"],
+  (ctx) => {
     let msg = `
   Hello ${ctx.chat.first_name}
 I'm bot made by Mr. Teekam.
 Type /help - for more options
     `;
     ctx.reply(msg);
-});
+  }
+);
 
 // bot.command('getMe', (ctx)=>{
 //     bot.telegram.getMe();
 // })
-
 
 // Media Files
 bot.command("picture", (ctx) => {
@@ -130,18 +129,17 @@ bot.command("picture", (ctx) => {
 });
 
 //Sending GIFs
-bot.command('gif', (ctx) => {
-    // bot.telegram.sendChatAction(ctx.chat.id, "upload_photo")
+bot.command("gif", (ctx) => {
+  // bot.telegram.sendChatAction(ctx.chat.id, "upload_photo")
 
-    bot.telegram.sendAnimation(ctx.chat.id,
-        "https://media.tenor.com/EEByypBESRkAAAAM/online.gif",
-        {
-            reply_to_message_id: ctx.message.message_id
-        }
-    );
-})
-
-
+  bot.telegram.sendAnimation(
+    ctx.chat.id,
+    "https://media.tenor.com/EEByypBESRkAAAAM/online.gif",
+    {
+      reply_to_message_id: ctx.message.message_id,
+    }
+  );
+});
 
 //GET DOWNLOAD LINK(for personal use only)
 // bot.on("message", async ctx=>{
@@ -152,61 +150,60 @@ bot.command('gif', (ctx) => {
 //     }
 // });
 
-//HELP and START 
+//HELP and START
 // bot.command(['start','help'], ctx=>{
 //     let msg= `
 // /hi - hello message
 // /list- To send document
-// /mediagroup- send media groups 
+// /mediagroup- send media groups
 //     `;
 //     ctx.reply(msg);
 // });
 
-
-
 //AXIOS API
 
-const axios = require('axios');
-bot.command('catfacts', (ctx) => {
-    axios.get('https://catfact.ninja/fact')
-        .then(res => {
-            ctx.reply("Cat Fact: \n" + res.data.fact)
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        })
-})
+const axios = require("axios");
+bot.command("catfacts", (ctx) => {
+  axios
+    .get("https://catfact.ninja/fact")
+    .then((res) => {
+      ctx.reply("Cat Fact: \n" + res.data.fact);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 //Cat pic with some text
-bot.command('catpic', async (ctx) => {
-    let inp = ctx.message.text;
-    let inpsplit = inp.split(" ");
-    if (inpsplit.length == 1) {
-        try {
-            let res = await axios.get('https://aws.random.cat/meow');
-            ctx.replyWithPhoto(res.data.file);
-        } catch (error) {
-            console.log(error);
-        }
+bot.command("catpic", async (ctx) => {
+  let inp = ctx.message.text;
+  let inpsplit = inp.split(" ");
+  if (inpsplit.length == 1) {
+    try {
+      let res = await axios.get("https://aws.random.cat/meow");
+      ctx.replyWithPhoto(res.data.file);
+    } catch (error) {
+      console.log(error);
     }
-    else {
-        inpsplit.shift();
-        inp = inpsplit.join(" ");
-        ctx.replyWithPhoto(`https://cataas.com/cat/says/${inp}`);
-    }
+  } else {
+    inpsplit.shift();
+    inp = inpsplit.join(" ");
+    ctx.replyWithPhoto(`https://cataas.com/cat/says/${inp}`);
+  }
 });
 
 //Languages
 const fs = require("fs");
 bot.command("languages", (ctx) => {
-    let x = fs.readFileSync("./languages.json", "utf8");
-    let data = JSON.parse(x);
-    console.log(data);
-    let msg = "Languages:\n";
-    data.forEach(element => {
-        msg += `-${element}\n`
-    });
-    ctx.reply(msg);
+  let x = fs.readFileSync("./languages.json", "utf8");
+  let data = JSON.parse(x);
+  console.log(data);
+  let msg = "Languages:\n";
+  data.forEach((element) => {
+    msg += `-${element}\n`;
+  });
+  ctx.reply(msg);
 });
 
 // https://dog.ceo/dog-api/breeds-list  -- website
@@ -232,8 +229,6 @@ bot.command("languages", (ctx) => {
 //     }
 // })
 
-
-
 //GOOGLE SHEET
 // https://docs.google.com/spreadsheets/d/e/2PACX-1vQFOouQS5N2lf_SeKlTgD9iIYGGDzb_wwXY4h-ftPSfS4zWwrvhTS5zqmMiKxX8gYsMqJZ7lEdu_PIZ/pubhtml
 // https://docs.google.com/spreadsheets/d/1Dvqp7Emf1gwYPLWZSxgxdZZgxqx0nhQZQpe6PoB6RkU/edit?usp=sharing
@@ -244,21 +239,21 @@ bot.command("languages", (ctx) => {
 getData();
 let dataOfGSheet;
 async function getData() {
-    try {
-        res = await axios(`https://sheets.googleapis.com/v4/spreadsheets/1Dvqp7Emf1gwYPLWZSxgxdZZgxqx0nhQZQpe6PoB6RkU/values/Sheet1?alt=json&key=${process.env.GSHEETAPIKEY}`);
-        // console.log(res.data.values);
-        dataOfGSheet = res.data;
-    } catch (error) {
+  try {
+    res = await axios(
+      `https://sheets.googleapis.com/v4/spreadsheets/1Dvqp7Emf1gwYPLWZSxgxdZZgxqx0nhQZQpe6PoB6RkU/values/Sheet1?alt=json&key=${process.env.GSHEETAPIKEY}`
+    );
+    // console.log(res.data.values);
+    dataOfGSheet = res.data;
+  } catch (error) {}
+}
 
-    }
-};
-
-bot.command('gsheet', (ctx) => {
-    let maxRows = dataOfGSheet.values[0][1];
-    console.log(maxRows);
-    let ran = Math.floor(Math.random() * maxRows) + 1;
-    console.log(ran);
-    ctx.reply("Random fact:\n" + dataOfGSheet.values[ran - 1][4]);
+bot.command("gsheet", (ctx) => {
+  let maxRows = dataOfGSheet.values[0][1];
+  console.log(maxRows);
+  let ran = Math.floor(Math.random() * maxRows) + 1;
+  console.log(ran);
+  ctx.reply("Random fact:\n" + dataOfGSheet.values[ran - 1][4]);
 });
 
 //Update Google Sheet
@@ -269,26 +264,24 @@ bot.command("refreshgsheet", async (ctx) => {
   ctx.reply("Google Sheet updated");
 });
 
-
-
 // INLINE KEYBOARD
 
 bot.command("inlinebuttons", (ctx) => {
-    bot.telegram.sendMessage(ctx.chat.id, "Inline Menu", {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            { text: "Fruits list", callback_data: "fruitslist" },
-            { text: "Vegetables list", callback_data: "vegetableslist" },
-            { text: "Btn3", callback_data: "hii" },
-          ],
-          [
-            { text: "Btn21", callback_data: "hii" },
-            { text: "Reply Keyboard", callback_data: "replykeyboard" },
-          ],
+  bot.telegram.sendMessage(ctx.chat.id, "Inline Menu", {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: "Fruits list", callback_data: "fruitslist" },
+          { text: "Vegetables list", callback_data: "vegetableslist" },
+          { text: "Btn3", callback_data: "hii" },
         ],
-      },
-    });
+        [
+          { text: "Btn21", callback_data: "hii" },
+          { text: "Reply Keyboard", callback_data: "replykeyboard" },
+        ],
+      ],
+    },
+  });
 });
 
 // bot.action("fruits", (ctx)=>{
@@ -297,66 +290,56 @@ bot.command("inlinebuttons", (ctx) => {
 // });
 
 bot.action("fruitslist", (ctx) => {
-    ctx.deleteMessage();
-    bot.telegram.sendMessage(ctx.chat.id, "List of Fruits:\n-Apple\n-Orange\n-Banana",
-        {
-            reply_markup: {
-                inline_keyboard: [
-                    [
-                        { text: "Back to menu", callback_data: "menu" },
-
-                    ],
-                ]
-            }
-        }
-    )
+  ctx.deleteMessage();
+  bot.telegram.sendMessage(
+    ctx.chat.id,
+    "List of Fruits:\n-Apple\n-Orange\n-Banana",
+    {
+      reply_markup: {
+        inline_keyboard: [[{ text: "Back to menu", callback_data: "menu" }]],
+      },
+    }
+  );
 });
 
 bot.action("vegetableslist", (ctx) => {
-    ctx.deleteMessage();
-    bot.telegram.sendMessage(ctx.chat.id, "List of Vegetables:\n-Potato\n-Tomato\n-Onion",
-        {
-            reply_markup: {
-                inline_keyboard: [
-                    [
-                        { text: "Back to menu", callback_data: "menu" },
-
-                    ],
-                ]
-            }
-        }
-    )
+  ctx.deleteMessage();
+  bot.telegram.sendMessage(
+    ctx.chat.id,
+    "List of Vegetables:\n-Potato\n-Tomato\n-Onion",
+    {
+      reply_markup: {
+        inline_keyboard: [[{ text: "Back to menu", callback_data: "menu" }]],
+      },
+    }
+  );
 });
 
 bot.action("menu", (ctx) => {
-    ctx.deleteMessage();
-    bot.telegram.sendMessage(ctx.chat.id, "Inline Menu", {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            { text: "Fruits list", callback_data: "fruitslist" },
-            { text: "Vegetables list", callback_data: "vegetableslist" },
-            { text: "Hello", callback_data: "hi" },
-          ],
-          [
-            { text: "Help", callback_data: "/help" },
-            { text: "Reply Keyboard", callback_data: "replykeyboard" },
-          ],
+  ctx.deleteMessage();
+  bot.telegram.sendMessage(ctx.chat.id, "Inline Menu", {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: "Fruits list", callback_data: "fruitslist" },
+          { text: "Vegetables list", callback_data: "vegetableslist" },
+          { text: "Hello", callback_data: "hi" },
         ],
-      },
-    });
+        [
+          { text: "Help", callback_data: "/help" },
+          { text: "Reply Keyboard", callback_data: "replykeyboard" },
+        ],
+      ],
+    },
+  });
 });
 
-// ReplyKeyboardMarkup 
+// ReplyKeyboardMarkup
 bot.action("replykeyboard", (ctx) => {
-//   ctx.deleteMessage();
+  //   ctx.deleteMessage();
   bot.telegram.sendMessage(ctx.chat.id, "Reply Menu", {
     reply_markup: {
-      keyboard: [
-        [{ text: "Hi" }],
-        [{ text: "Hey" }],
-        [{ text: "Hello" }],
-      ],
+      keyboard: [[{ text: "Hi" }], [{ text: "Hey" }], [{ text: "Hello" }]],
     },
   });
 });
@@ -375,58 +358,53 @@ Tic Tac Toe game - zerocrossgame.singhteekam.in
   });
 });
 
-
 //////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 // Sending document - sendDocument() method
-bot.command("thumbnailitem", ctx => {
-    bot.telegram.sendDocument(
-        ctx.chat.id,
-        // {
-        //     source: "LOCAL-PATH"
-        // }
-        "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-        ,
-        {
-            thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-        }
-
-    )
+bot.command("thumbnailitem", (ctx) => {
+  bot.telegram.sendDocument(
+    ctx.chat.id,
+    // {
+    //     source: "LOCAL-PATH"
+    // }
+    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+    {
+      thumbnail:
+        "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+    }
+  );
 });
 
-
 //Sending multiple files
-bot.command('mediagroup', (ctx) => {
-    bot.telegram.sendChatAction(ctx.chat.id, "upload_document")
+bot.command("mediagroup", (ctx) => {
+  bot.telegram.sendChatAction(ctx.chat.id, "upload_document");
 
-    // bot.telegram.sendMediaGroup(ctx.chat.id,
-    //     [
-    //         {
-    //             type:"photo",
-    //             media: "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png"
-    //         },
-    //         {
-    //             type:"photo",
-    //             media: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
-    //         }
-    //     ],
-    // );
+  // bot.telegram.sendMediaGroup(ctx.chat.id,
+  //     [
+  //         {
+  //             type:"photo",
+  //             media: "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png"
+  //         },
+  //         {
+  //             type:"photo",
+  //             media: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
+  //         }
+  //     ],
+  // );
 
-    // OR
-    let photos = [
-        "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png",
-        "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
-    ];
-    let allpics = photos.map(photo => {
-        return {
-            type: "photo",
-            media: photo
-        }
-    })
-    bot.telegram.sendMediaGroup(ctx.chat.id, allpics);
-})
+  // OR
+  let photos = [
+    "https://media.geeksforgeeks.org/wp-content/uploads/20210224040124/JSBinCollaborativeJavaScriptDebugging6-300x160.png",
+    "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png",
+  ];
+  let allpics = photos.map((photo) => {
+    return {
+      type: "photo",
+      media: photo,
+    };
+  });
+  bot.telegram.sendMediaGroup(ctx.chat.id, allpics);
+});
 
 // Location - sendLocation() method
 bot.command("location", (ctx) => {
@@ -435,35 +413,33 @@ bot.command("location", (ctx) => {
 
 // Venue - sendVenue() method
 bot.command("venue", (ctx) => {
-  bot.telegram.sendVenue(ctx.chat.id, 
-    28.459497, 
+  bot.telegram.sendVenue(
+    ctx.chat.id,
+    28.459497,
     77.026634,
     "This is venue function",
     "AVL, Gurgaon"
-    );
+  );
 });
 
 // Sending Contact - sendContact() method
 bot.command("sendingcontact", (ctx) => {
-  bot.telegram.sendContact(ctx.chat.id, 
-    "9999999999", 
-    "Antique"
-    );
+  bot.telegram.sendContact(ctx.chat.id, "9999999999", "Antique");
 });
 
 //POLLING - sendPoll() METHOD
-bot.command("polling", (ctx)=>{
-    bot.telegram.sendPoll(
-      ctx.chat.id,
-      "This is question",
-      ["first", "second", "third"],
-      {
-        type: "quiz",
-        correct_option_id: 1,
-        explanation: "Just testing"
-      }
-    );
-})
+bot.command("polling", (ctx) => {
+  bot.telegram.sendPoll(
+    ctx.chat.id,
+    "This is question",
+    ["first", "second", "third"],
+    {
+      type: "quiz",
+      correct_option_id: 1,
+      explanation: "Just testing",
+    }
+  );
+});
 
 //  sendDice method
 bot.command("senddice", (ctx) => {
@@ -473,10 +449,9 @@ bot.command("senddice", (ctx) => {
 });
 
 // Chat action - sendChatAction() method
-bot.command("chataction", (ctx)=>{
-    bot.telegram.sendChatAction(ctx.chat.id, "typing");
-})
-
+bot.command("chataction", (ctx) => {
+  bot.telegram.sendChatAction(ctx.chat.id, "typing");
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -537,7 +512,6 @@ bot.on("callback_query", async (ctx) => {
   }
 });
 
-
 // bot.on("callback_query", async (ctx) => {
 //   console.log("Callback: " + ctx.callbackQuery.game_short_name);
 //   // await ctx.telegram.answerCbQuery(ctx.callbackQuery.id);
@@ -561,7 +535,6 @@ bot.on("callback_query", async (ctx) => {
 //   }
 // });
 
-
 // bot.on("inline_query", async (ctx) => {
 //   console.log("Inline query: "+ctx.inlineQuery);
 //   await ctx.telegram.answerInlineQuery(ctx.inlineQuery.id, [
@@ -569,16 +542,24 @@ bot.on("callback_query", async (ctx) => {
 //   ]);
 // });
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // WEB APPS
 
-bot.command("webapp", (ctx)=>{
-  bot.telegram.sendMessage(ctx.chat.id, "Coming soon");
-})
-
-
+bot.command("webapp", (ctx) => {
+  bot.telegram.sendMessage(ctx.chat.id, "Web App", {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "WebApp",
+            web_app: { url: "t.me/singht_bot/portfolio" },
+          },
+        ],
+      ],
+    },
+  });
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -590,4 +571,3 @@ bot.launch({
     port: 5000,
   },
 });
- 
