@@ -47,6 +47,7 @@ bot.telegram.setMyCommands([
 //HELP MESSAGE
 bot.help((ctx) => {
   let msg = `
+Paste any social media link to get download link directly in chat \n
 /hi - hello message
 /picture - for photo
 /gif - for gif
@@ -94,6 +95,34 @@ bot.help((ctx) => {
 // bot.on('sticker', (ctx) =>{
 //     ctx.reply('👍')
 // });
+
+// bot.on('message', async (msg) => {
+//   const chatId = msg.chat.id;
+//   const messageText = msg.text;
+
+//   try {
+//       const response = await axios.post('https://api.openai.com/v1/completions', {
+//           model: 'davinci-002', // Or any other model you prefer
+//           prompt: messageText,
+//           max_tokens: 150,
+//           temperature: 0.7
+//       }, {
+//           headers: {
+//               'Authorization': `Bearer ${process.env.openAIAPIKey}`,
+//               'Content-Type': 'application/json',
+//               "Accept-Encoding": "gzip,deflate,compress"
+//           }
+//       });
+
+//       const botResponse = response.data.choices[0].text.trim();
+//       console.log(botResponse);
+//       bot.telegram.sendMessage(chatId, botResponse);
+//   } catch (error) {
+//       console.error('Error:', error);
+//       bot.telegram.sendMessage(chatId, 'Sorry, an error occurred while processing your request.');
+//   }
+// });
+
 
 bot.hears(
   ["/hi", "/start", "hi", "Hi", "Hii", "hii", "hello", "Hello", "hey", "Hey"],
@@ -234,7 +263,7 @@ bot.command("languages", (ctx) => {
 // https://docs.google.com/spreadsheets/d/1Dvqp7Emf1gwYPLWZSxgxdZZgxqx0nhQZQpe6PoB6RkU/edit?usp=sharing
 
 // Ref: https://stackoverflow.com/questions/68854198/did-google-sheets-stop-allowing-json-access
-//  https://sheets.googleapis.com/v4/spreadsheets/1Dvqp7Emf1gwYPLWZSxgxdZZgxqx0nhQZQpe6PoB6RkU/values/Sheet1?alt=json&key=AIzaSyAEHXSaRH2kTOsonv20su6zVjWWSr_FZc8
+//  https://sheets.googleapis.com/v4/spreadsheets/1Dvqp7Emf1gwYPLWZSxgxdZZgxqx0nhQZQpe6PoB6RkU/values/Sheet1?alt=json&key=GSHEETAPIKEY
 
 getData();
 let dataOfGSheet;
@@ -560,6 +589,43 @@ bot.command("webapp", (ctx) => {
     },
   });
 });
+
+// Download social media videos
+bot.on('text', async(ctx) => {
+  // Extract the text message sent by the user
+  const userInput = ctx.message.text;
+
+  // Check if the message starts with 'dl:'
+  if (userInput.startsWith('http')) {
+    const options = {
+      method: 'GET',
+      url: process.env.RAPIDAPISOCIALURLALL,
+      params: {
+        url: userInput,
+        // filename: `video${new Date().getTime()}`
+      },
+      headers: {
+        'X-RapidAPI-Key': process.env.RAPIDAPISOCIALKEY,
+        'X-RapidAPI-Host': process.env.RAPIDAPISOCIALHOST
+      }
+    };
+    
+    try {
+      const response = await axios.request(options);
+      // console.log(response.data);
+      const downloadLinks= `
+      Title: ${response.data.title} \n
+      Download Links below: \n
+      ${response.data.links[0].quality} : ${response.data.links[0].link} \n
+      `
+      ctx.reply(downloadLinks);
+    } catch (error) {
+      console.error(error);
+      ctx.reply("Error downloading given link:\n" + error);
+    }
+  }
+});
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
