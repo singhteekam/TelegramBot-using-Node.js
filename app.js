@@ -633,7 +633,7 @@ bot.on('text', async(ctx) => {
 
 bot.launch({
   webhook: {
-    domain: "https://wide-eyed-sweatshirt-bee.cyclic.app",
+    domain: process.env.WEBHOOKURL,
     port: 5000,
   },
 });
