@@ -613,12 +613,18 @@ bot.on('text', async(ctx) => {
     try {
       const response = await axios.request(options);
       // console.log(response.data);
-      const downloadLinks= `
-      Title: ${response.data.title} \n
-      Download Links below: \n
-      ${response.data.links[0].quality} : ${response.data.links[0].link} \n
-      `
-      ctx.reply(downloadLinks);
+      let dlLinks=`Title: ${response.data.title} \n
+      Download Links below: \n \n`;
+      for (let i = 0; i < response.data.links.length; i++) {
+        dlLinks= dlLinks.concat(`${response.data.links[i].quality} : ${response.data.links[i].link} \n \n`);
+        
+      }
+      // const downloadLinks= `
+      // Title: ${response.data.title} \n
+      // Download Links below: \n
+      // ${response.data.links[0].quality} : ${response.data.links[0].link} \n
+      // `
+      ctx.reply(dlLinks);
     } catch (error) {
       console.error(error);
       ctx.reply("Error downloading given link:\n" + error);
@@ -629,8 +635,11 @@ bot.on('text', async(ctx) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+// For development
 // bot.launch();
 
+
+// For production
 bot.launch({
   webhook: {
     domain: process.env.WEBHOOKURL,
